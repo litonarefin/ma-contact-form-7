@@ -3,6 +3,7 @@
 	 * Author Name: Liton Arefin
 	 * Author URL: https://jeweltheme.com
 	 * Date: 9/3/19
+	 * Description: Required Plugins and Promotional Admin Notice Class
 	 */
 
 	if (!defined('ABSPATH')) { exit; } // No, Direct access Sir !!!
@@ -34,8 +35,30 @@
 				$this->ma_el_require_load_textdomain();
 				add_action('plugins_loaded', [$this, 'ma_el_require_plugins_loaded']);
 
+				/* Admin notice for asking ratings and Required Plugins */
+				add_action( 'admin_notices', array( $this, 'ma_el_promotional_offer' ) );
+				add_action( 'admin_notices' , array( $this, 'ma_el_review_notice_message' ) );
+				add_action( 'wp_ajax_ma_el_dismiss_offer_notice', array( $this, 'ma_el_dismiss_offer_notice'
+				) );
+				add_action( 'wp_ajax_ma_el_review_notice', array( $this, 'ma_el_review_notice' ) );
+
 			}
 
+			public function ma_el_promotional_offer(){
+
+			}
+
+			public function ma_el_review_notice_message(){
+
+			}
+
+			public function ma_el_dismiss_offer_notice(){
+
+			}
+
+			public function ma_el_review_notice(){
+
+			}
 
 			public function ma_el_require_constants(){
 
