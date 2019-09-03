@@ -248,7 +248,7 @@
 					<div class="master-addons-review-text">
 						<?php if( $total_entries >= 50 ) : ?>
 							<h3><?php _e( 'Enjoying <strong>Master Addons</strong>?', 'master-addons' ) ?></h3>
-							<p><?php _e( 'Seems like you are enjoying <strong>Master Addons</strong>. Would you please show us a little L#master-addons-review-notove by rating us in the <a href="https://wordpress.org/support/plugin/master-addons/reviews/#postform" target="_blank"><strong>WordPress.org</strong></a>?', 'master-addons' ) ?></p>
+							<p><?php _e( 'Seems like you are enjoying <strong>Master Addons</strong>. Would you please show us a little Love by rating us in the <a href="https://wordpress.org/support/plugin/master-addons/reviews/#postform" target="_blank"><strong>WordPress.org</strong></a>?', 'master-addons' ) ?></p>
 						<?php else: ?>
 							<h3><?php _e( 'Enjoying <strong>Master Addons</strong>?', 'master-addons' ) ?></h3>
 							<p><?php _e( 'Hope that you had a neat and snappy experience with the tool. Would you 

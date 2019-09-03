@@ -41,8 +41,8 @@
 			}
 
 			public function __construct() {
-				$this->ma_cf7_constants();
-				$this->ma_cf7_include_files();
+
+				add_action( 'elementor/init', [ $this, 'ma_cf7_category' ] );
 
 				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), [ $this, 'ma_cf7_plugin_actions_links' ] );
 
@@ -50,6 +50,21 @@
 
 			public function ma_cf7_init(){
 
+				$this->ma_cf7_constants();
+				$this->ma_cf7_include_files();
+
+			}
+
+
+			function ma_cf7_category() {
+
+				\Elementor\Plugin::instance()->elements_manager->add_category(
+					'master-addons',
+					[
+						'title' => esc_html__( 'Master Addons', MELA_TD ),
+						'icon'  => 'font',
+					],
+					1 );
 			}
 
 			public function ma_cf7_constants(){
@@ -91,6 +106,7 @@
 			public function ma_cf7_load_textdomain(){
 				return load_plugin_textdomain( 'ma-cf7' );
 			}
+
 
 
 
