@@ -20,12 +20,14 @@
 			const MINIMUM_PHP_VERSION = '5.4';
 			const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
 			public static $plugin_name = 'Master Contact Form 7 Style';
+//			public static $plugin_slug = 'ma-contact-form-7';
+			public static $plugin_slug = 'elementor';
 
 			private static $instance = null;
 
 			private static $plugin_path;
 			private static $plugin_url;
-			private static $plugin_slug;
+//			private static $plugin_slug;
 			public static $plugin_dir_url;
 
 			public static function get_instance() {
@@ -114,18 +116,18 @@
 
 			public function ma_cf7_include_files(){
 				include_once MA_CF7_PLUGIN_PATH . '/classes/ma-el-require-class.php';
+				// include_once MA_CF7_PLUGIN_PATH . '/classes/class-tgm-plugin-activation.php';
 
 				$ma_el_cf7 = new Master_Addons_Require_Class();
 				$ma_el_cf7->set_plugin_name( self::$plugin_name );
-
 			}
 
 			public function ma_cf7_plugin_actions_links($links){
 
 				if ( is_admin() ) {
-					$links[] = '<a href="https://master-addons.com/contact-us" target="_blank">' . esc_html__( 'Support', MELA_TD ) . '</a>';
+					$links[] = '<a href="https://master-addons.com/contact-us" target="_blank">' . esc_html__( 'Support', MA_CF7_TD ) . '</a>';
 					$links[] = '<a href="https://master-addons.com/docs/" target="_blank">' . esc_html__( 'Documentation',
-							MELA_TD ) . '</a>';
+							MA_CF7_TD ) . '</a>';
 				}
 
 				return $links;
