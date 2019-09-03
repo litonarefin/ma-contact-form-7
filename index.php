@@ -126,7 +126,7 @@
 				\Elementor\Plugin::instance()->elements_manager->add_category(
 					'master-addons',
 					[
-						'title' => esc_html__( 'Master Addons', MELA_TD ),
+						'title' => esc_html__( 'Master Addons', MA_CF7_TD ),
 						'icon'  => 'font',
 					], 1 );
 			}
