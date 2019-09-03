@@ -31,20 +31,23 @@
 
 			public function __construct() {
 
-				$this->ma_el_require_include_files();
-//				$this->is_elementor_installed();
-				$this->ma_el_require_constants();
-				$this->ma_el_require_load_textdomain();
 				add_action('plugins_loaded', [$this, 'ma_el_require_plugins_loaded']);
 
 
 				/* Admin notice for asking ratings and Required Plugins */
 				add_action( 'admin_notices', array( $this, 'ma_el_promotional_offer' ) );
 				add_action( 'admin_notices' , array( $this, 'ma_el_review_notice_message' ) );
-				add_action( 'wp_ajax_ma_el_dismiss_offer_notice', array( $this, 'ma_el_dismiss_offer_notice' ));
+				add_action( 'wp_ajax_ma_el_promotional_offer_notice', array( $this, 'ma_el_dismiss_offer_notice' ));
 				add_action( 'wp_ajax_ma_el_review_notice', array( $this, 'ma_el_review_notice' ) );
 
 			}
+
+			public function ma_el_init(){
+				$this->ma_el_require_constants();
+				$this->ma_el_require_load_textdomain();
+				$this->ma_el_require_include_files();
+			}
+
 
 			public function ma_el_promotional_offer(){
 				// Show only to Admins
@@ -58,7 +61,7 @@
 				}
 
 				// check if wpuf is showing banner
-				if ( class_exists( 'WPUF_Admin_Promotion' ) ) {
+				if ( class_exists( 'MA_EL_Admin_Promotion' ) ) {
 					return;
 				}
 
@@ -69,19 +72,16 @@
 					return;
 				}
 
-				// $product_text = (  weforms()->is_pro() ) ? __( 'Pro upgrade and all extensions, ', 'master-addons' ) :
-				// __(
-				// 'all
-				// extensions, ', 'master-addons' );
+//				 $product_text = (  ma_el_fs()->can_use_premium_code() ) ? __( 'Pro upgrade and all extensions, ', 'master-addons' ) : __( 'all extensions, ', 'master-addons' );
 
-				// $offer_msg  = __( '<h2><span class="dashicons dashicons-awards"></span> weDevs 5th Birthday
-				// Offer</h2>', 'master-addons' );
-				$offer_msg  = __( '<p>
-                                <strong class="highlight-text" style="font-size: 18px">33&#37; flat discount on all our products</strong><br>
-                                Save money this holiday season while supercharging your WordPress site with plugins that were made to empower you.
-                                <br>
-                                Offer ending soon!
-                            </p>', 'master-addons' );
+//				 $offer_msg  = __( '<h2><span class="dashicons dashicons-awards"></span> Jewel Theme\'s 6th Birthday
+// Offer</h2>', 'master-addons' );
+//				$offer_msg  = __( '<p>
+//                                <strong class="highlight-text" style="font-size: 18px">33&#37; flat discount on all our products</strong><br>
+//                                Save money this holiday season while supercharging your WordPress site with plugins that were made to empower you.
+//                                <br>
+//                                Offer ending soon!
+//                            </p>', 'master-addons' );
 
 				?>
 				<div class="notice is-dismissible" id="master-addons-promotional-offer-notice">
@@ -219,15 +219,16 @@
 
 			}
 
+
 			public function ma_el_review_notice_message(){
 // Show only to Admins
 				if ( ! current_user_can( 'manage_options' ) ) {
 					return;
 				}
 
-				$dismiss_notice  = get_option( 'weforms_review_notice_dismiss', 'no' );
-				$activation_time = get_option( 'weforms_installed' );
-				$total_entries   = weforms_count_entries();
+				$dismiss_notice  = get_option( 'ma_el_review_notice_dismiss', 'no' );
+				$activation_time = get_option( 'ma_el_installed' );
+				$total_entries   = 1000;
 
 				// check if it has already been dismissed
 				// and don't show notice in 15 days of installation, 1296000 = 15 Days in seconds
@@ -247,21 +248,23 @@
 					<div class="master-addons-review-text">
 						<?php if( $total_entries >= 50 ) : ?>
 							<h3><?php _e( 'Enjoying <strong>Master Addons</strong>?', 'master-addons' ) ?></h3>
-							<p><?php _e( 'Seems like you are getting a good response using <strong>weForms</strong>. Would you please show us a little love by rating us in the <a href="https://wordpress.org/support/plugin/weforms/reviews/#postform" target="_blank"><strong>WordPress.org</strong></a>?', 'master-addons' ) ?></p>
+							<p><?php _e( 'Seems like you are enjoying <strong>Master Addons</strong>. Would you please show us a little L#master-addons-review-notove by rating us in the <a href="https://wordpress.org/support/plugin/master-addons/reviews/#postform" target="_blank"><strong>WordPress.org</strong></a>?', 'master-addons' ) ?></p>
 						<?php else: ?>
 							<h3><?php _e( 'Enjoying <strong>Master Addons</strong>?', 'master-addons' ) ?></h3>
 							<p><?php _e( 'Hope that you had a neat and snappy experience with the tool. Would you 
-							please show us a little love by rating us in the <a href="https://wordpress.org/support/plugin/weforms/reviews/#postform" target="_blank"><strong>WordPress.org</strong></a>?', 'master-addons' ) ?></p>
+							please show us a little love by rating us in the <a 
+							href="https://wordpress.org/support/plugin/master-addons/reviews/#postform" target="_blank"><strong>WordPress.org</strong></a>?', 'master-addons' ) ?></p>
 						<?php endif; ?>
 
 						<ul class="master-addons-review-ul">
-							<li><a href="https://wordpress.org/support/plugin/weforms/reviews/#postform"
+							<li><a href="https://wordpress.org/support/plugin/master-addons/reviews/#postform"
 							target="_blank"><span class="dashicons dashicons-external"></span><?php _e( 'Sure! I\'d love to!', 'master-addons' ) ?></a></li>
 							<li><a href="#" class="notice-dismiss"><span class="dashicons dashicons-smiley"></span><?php _e( 'I\'ve already left a review', 'master-addons' ) ?></a></li>
 							<li><a href="#" class="notice-dismiss"><span class="dashicons dashicons-dismiss"></span><?php _e( 'Never show again', 'master-addons' ) ?></a></li>
 						</ul>
 					</div>
 				</div>
+
 				<style type="text/css">
 					#master-addons-review-notice .notice-dismiss{
 						padding: 0 0 0 26px;
@@ -320,7 +323,7 @@
 
 					#master-addons-review-notice .master-addons-review-ul li a {
 						display: inline-block;
-						color: #82C776;
+						color: #4b00e7;
 						text-decoration: none;
 						padding-left: 26px;
 						position: relative;
@@ -337,7 +340,7 @@
                         e.preventDefault();
                         jQuery("#master-addons-review-notice").hide();
 
-                        wp.ajax.post('master-addons-dismiss-review-notice', {
+                        wp.ajax.post('ma_el_review_notice', {
                             dismissed: true
                         });
                     });
@@ -345,18 +348,21 @@
 				<?php
 			}
 
+
 			public function ma_el_dismiss_offer_notice(){
 				if ( ! empty( $_POST['dismissed'] ) ) {
-					$offer_key = 'weforms_promotional_offer_notice';
+					$offer_key = 'ma_el_promotional_offer_notice';
 					update_option( $offer_key, 'hide' );
 				}
 			}
 
+
 			public function ma_el_review_notice(){
 				if ( ! empty( $_POST['dismissed'] ) ) {
-					update_option( 'weforms_review_notice_dismiss', 'yes' );
+					update_option( 'ma_el_review_notice_dismiss', 'yes' );
 				}
 			}
+
 
 			public function ma_el_require_constants(){
 
@@ -366,10 +372,7 @@
 				}
 			}
 
-			/**
-			 * @param string $slug The WordPress.org slug of the plugin
-			 * @return StdClass
-			 */
+
 			public function get_plugin_info( $slug ) {
 
 				// Create a empty array with variable name different based on plugin slug
@@ -405,14 +408,7 @@
 				return $info;
 			}
 
-			/**
-			 * Get a specific field
-			 *
-			 * @param string $slug The WordPress.org slug of the plugin
-			 * @param string $field The field you want to retrieve
-			 *
-			 * @return string
-			 */
+
 			public function get_plugin_field( $slug, $field ) {
 
 				// Fetch info
@@ -439,9 +435,6 @@
 				return load_plugin_textdomain( 'master-addons' );
 			}
 
-			public function ma_el_init(){
-
-			}
 
 			public function ma_el_require_plugins_loaded(){
 				// Check if Elementor installed and activated
@@ -539,9 +532,7 @@
 			}
 
 			public function ma_el_require_include_files(){
-				/**
-				 * Detect plugin. For use in Admin area only.
-				 */
+
 				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 				if ( is_plugin_active( 'elementor/elementor.php' ) ) {
 					//plugin is activated
