@@ -42,9 +42,21 @@
 
 			public function __construct() {
 
+				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), [ $this, 'ma_cf7_plugin_actions_links' ] );
+
 				add_action( 'elementor/init', [ $this, 'ma_cf7_category' ] );
 
-				add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), [ $this, 'ma_cf7_plugin_actions_links' ] );
+
+				// Enqueue Styles and Scripts
+				add_action( 'wp_enqueue_scripts', [ $this, 'ma_cf7_enqueue_scripts' ], 20 );
+
+				// Elementor Dependencies
+
+				add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'ma_cf7_editor_styles' ] );
+
+				// Add Elementor Widgets
+				add_action( 'elementor/widgets/widgets_registered', [ $this, 'ma_cf7_init_widgets' ] );
+
 
 			}
 
@@ -53,18 +65,6 @@
 				$this->ma_cf7_constants();
 				$this->ma_cf7_include_files();
 
-			}
-
-
-			function ma_cf7_category() {
-
-				\Elementor\Plugin::instance()->elements_manager->add_category(
-					'master-addons',
-					[
-						'title' => esc_html__( 'Master Addons', MELA_TD ),
-						'icon'  => 'font',
-					],
-					1 );
 			}
 
 			public function ma_cf7_constants(){
@@ -103,11 +103,37 @@
 			}
 
 
-			public function ma_cf7_load_textdomain(){
-				return load_plugin_textdomain( 'ma-cf7' );
+			public function ma_cf7_enqueue_scripts(){
+
+			}
+
+			public function ma_cf7_editor_styles(){
+
 			}
 
 
+			public function ma_cf7_init_widgets() {
+
+				if ( function_exists( 'wpcf7' ) ) {
+					require_once MA_CF7_PLUGIN_PATH  .'/addon/ma-cf7.php';
+				}
+
+			}
+
+
+			function ma_cf7_category() {
+
+				\Elementor\Plugin::instance()->elements_manager->add_category(
+					'master-addons',
+					[
+						'title' => esc_html__( 'Master Addons', MELA_TD ),
+						'icon'  => 'font',
+					], 1 );
+			}
+
+			public function ma_cf7_load_textdomain(){
+				return load_plugin_textdomain( 'ma-cf7' );
+			}
 
 
 			// Plugin URL
