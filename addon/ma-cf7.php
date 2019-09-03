@@ -18,7 +18,7 @@
 		}
 
 		public function get_title() {
-			return esc_html__( 'MA Contact Form 7 Styler', MELA_TD );
+			return esc_html__( 'MA Contact Form 7 Styler', MA_CF7_TD );
 		}
 
 		public function get_icon() {
@@ -41,17 +41,17 @@
 			$this->start_controls_section(
 				'ma_cf7',
 				[
-					'label' => esc_html__( 'Contact Form 7', MELA_TD )
+					'label' => esc_html__( 'Contact Form 7', MA_CF7_TD )
 				]
 			);
 
 			$this->add_control(
 				'ma_cf7_list',
 				[
-					'label'                 => esc_html__( 'Select Contact Form', MELA_TD ),
+					'label'                 => esc_html__( 'Select Contact Form', MA_CF7_TD ),
 					'type'                  => Controls_Manager::SELECT,
 					'label_block'           => true,
-					'options'               => Master_Addons_Helper::maad_el_retrive_cf7(),
+					'options'               => ma_el_cf7_retrive_form(),
 					'default'               => '0',
 				]
 			);
@@ -69,63 +69,36 @@
 			$this->start_controls_section(
 				'ma_cf7_section_style',
 				[
-					'label' => esc_html__( 'Design Layout', MELA_TD ),
+					'label' => esc_html__( 'Design Layout', MA_CF7_TD ),
 					'tab'                   => Controls_Manager::TAB_STYLE,
 				]
 			);
 
-			// Premium Version Codes
-			if ( ma_el_fs()->can_use_premium_code() ) {
 
-				$this->add_control(
-					'ma_cf7_layout_style',
-					[
-						'label' => __( 'Design Variations', MELA_TD ),
-						'type' => Controls_Manager::SELECT,
-						'default' => '1',
-						'options' => [
-							'1'   => __( 'Style One', MELA_TD ),
-							'2'   => __( 'Style Two', MELA_TD ),
-							'3'   => __( 'Style Three', MELA_TD ),
-							'4'   => __( 'Style Four', MELA_TD ),
-							'5'   => __( 'Style Five', MELA_TD ),
-							'6'   => __( 'Style Six', MELA_TD ),
-							'7'   => __( 'Style Seven', MELA_TD ),
-							'8'   => __( 'Style Eight', MELA_TD ),
-							'9'   => __( 'Style Nine', MELA_TD ),
-							'10'   => __( 'Style Ten', MELA_TD ),
-							'11'   => __( 'Style Eleven', MELA_TD ),
-						]
-					]
-				);
-
-			} else{
-
-				$this->add_control(
-					'ma_cf7_layout_style',
-					[
-						'label' => __( 'Design Variations', MELA_TD ),
-						'type' => Controls_Manager::SELECT,
-						'default' => '1',
-						'options' => [
-							'1'             => __( 'Style One', MELA_TD ),
-							'2'             => __( 'Style Two', MELA_TD ),
-							'3'             => __( 'Style Three', MELA_TD ),
-							'4'             => __( 'Style Four', MELA_TD ),
-							'cf7-pro-1'     => __( 'Style Five (Pro)', MELA_TD ),
-							'cf7-pro-2'     => __( 'Style Six (Pro)', MELA_TD ),
-							'cf7-pro-3'     => __( 'Style Seven (Pro)', MELA_TD ),
-							'cf7-pro-4'     => __( 'Style Eight (Pro)', MELA_TD ),
-							'cf7-pro-5'     => __( 'Style Nine (Pro)', MELA_TD ),
-							'cf7-pro-6'     => __( 'Style Ten (Pro)', MELA_TD ),
-							'cf7-pro-7'     => __( 'Style Eleven (Pro)', MELA_TD ),
-						],
-						'description' => sprintf( '10+ more Variations on <a href="%s" target="_blank">%s</a>',
-							esc_url_raw( admin_url('admin.php?page=master-addons-settings-pricing') ),
-							__( 'Upgrade Now', MELA_TD ) )
-					]
-				);
-			}
+			$this->add_control(
+				'ma_cf7_layout_style',
+				[
+					'label' => __( 'Design Variations', MA_CF7_TD ),
+					'type' => Controls_Manager::SELECT,
+					'default' => '1',
+					'options' => [
+						'1'             => __( 'Style One', MA_CF7_TD ),
+						'2'             => __( 'Style Two', MA_CF7_TD ),
+						'3'             => __( 'Style Three', MA_CF7_TD ),
+						'4'             => __( 'Style Four', MA_CF7_TD ),
+						'cf7-pro-1'     => __( 'Style Five (Pro)', MA_CF7_TD ),
+						'cf7-pro-2'     => __( 'Style Six (Pro)', MA_CF7_TD ),
+						'cf7-pro-3'     => __( 'Style Seven (Pro)', MA_CF7_TD ),
+						'cf7-pro-4'     => __( 'Style Eight (Pro)', MA_CF7_TD ),
+						'cf7-pro-5'     => __( 'Style Nine (Pro)', MA_CF7_TD ),
+						'cf7-pro-6'     => __( 'Style Ten (Pro)', MA_CF7_TD ),
+						'cf7-pro-7'     => __( 'Style Eleven (Pro)', MA_CF7_TD ),
+					],
+					'description' => sprintf( '10+ more Variations on <a href="%s" target="_blank">%s</a>',
+						esc_url_raw( 'https://master-addons.com/pricing/' ),
+						__( 'Upgrade Now', MA_CF7_TD ) )
+				]
+			);
 
 
 			$this->end_controls_section();
@@ -140,18 +113,18 @@
 			$this->start_controls_section(
 				'ma_cf7_section_errors',
 				[
-					'label' => esc_html__( 'Errors Style', MELA_TD )
+					'label' => esc_html__( 'Errors Messages', MA_CF7_TD )
 				]
 			);
 			$this->add_control(
 				'ma_cf7_error_messages',
 				[
-					'label'                 => __( 'Error Messages', MELA_TD ),
+					'label'                 => __( 'Error Messages', MA_CF7_TD ),
 					'type'                  => Controls_Manager::SELECT,
 					'default'               => 'show',
 					'options'               => [
-						'show'          => __( 'Show', MELA_TD ),
-						'hide'          => __( 'Hide', MELA_TD ),
+						'show'          => __( 'Show', MA_CF7_TD ),
+						'hide'          => __( 'Hide', MA_CF7_TD ),
 					],
 					'selectors_dictionary'  => [
 						'show'          => 'block',
@@ -166,12 +139,12 @@
 			$this->add_control(
 				'ma_cf7_validation_errors',
 				[
-					'label'                 => __( 'Validation Errors', MELA_TD ),
+					'label'                 => __( 'Validation Errors', MA_CF7_TD ),
 					'type'                  => Controls_Manager::SELECT,
 					'default'               => 'show',
 					'options'               => [
-						'show'          => __( 'Show', MELA_TD ),
-						'hide'          => __( 'Hide', MELA_TD ),
+						'show'          => __( 'Show', MA_CF7_TD ),
+						'hide'          => __( 'Hide', MA_CF7_TD ),
 					],
 					'selectors_dictionary'  => [
 						'show'          => 'block',
@@ -186,13 +159,41 @@
 			$this->end_controls_section();
 
 
+
+			$this->start_controls_section(
+				'ma_el_section_pro_style_section',
+				[
+					'label' => esc_html__( 'Upgrade to Pro Version for More Features', MA_CF7_TD )
+				]
+			);
+
+			$this->add_control(
+				'ma_el_control_get_pro_style_content_section',
+				[
+					'label' => esc_html__( 'Unlock more possibilities', MA_CF7_TD ),
+					'type' => Controls_Manager::CHOOSE,
+					'options' => [
+						'1' => [
+							'title' => esc_html__( '', MA_CF7_TD ),
+							'icon' => 'fa fa-unlock-alt',
+						],
+					],
+					'default' => '1',
+					'description' => '<span class="pro-feature"> Upgrade to  <a href="https://master-addons.com/pricing/" target="_blank">Pro Version</a> for more Elements with 
+Customization Options.</span>'
+				]
+			);
+
+			$this->end_controls_section();
+
+
 			/**
 			 * Style Tab: Form Design
 			 */
 			$this->start_controls_section(
 				'ma_cf7_section_container_style',
 				[
-					'label'                 => __( 'Form Container', MELA_TD ),
+					'label'                 => __( 'Form Container', MA_CF7_TD ),
 					'tab'                   => Controls_Manager::TAB_STYLE,
 				]
 			);
@@ -202,7 +203,7 @@
 				Group_Control_Background::get_type(),
 				[
 					'name'      => 'ma_cf7_background',
-					'label'     => esc_html__( 'Background', MELA_TD ),
+					'label'     => esc_html__( 'Background', MA_CF7_TD ),
 					'types'     => [ 'classic', 'gradient' ],
 					'selector' => '{{WRAPPER}} .master-addons-cf7',
 				]
@@ -211,7 +212,7 @@
 			$this->add_control(
 				'ma_cf7ainer_border_top',
 				[
-					'label'                 => esc_html__( 'Border Top Color', MELA_TD ),
+					'label'                 => esc_html__( 'Border Top Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#6e00e9',
 					'selectors'             => [
@@ -223,7 +224,7 @@
 			$this->add_control(
 				'ma_cf7_width',
 				[
-					'label' => esc_html__( 'Form Width', MELA_TD ),
+					'label' => esc_html__( 'Form Width', MA_CF7_TD ),
 					'type' => Controls_Manager::SLIDER,
 					'size_units' => [ 'px', 'em', '%' ],
 					'range' => [
@@ -249,7 +250,7 @@
 			$this->add_control(
 				'ma_cf7_padding',
 				[
-					'label' => esc_html__( 'Form Padding', MELA_TD ),
+					'label' => esc_html__( 'Form Padding', MA_CF7_TD ),
 					'type' => Controls_Manager::DIMENSIONS,
 					'size_units' => [ 'px', 'em', '%' ],
 					'selectors' => [
@@ -277,7 +278,7 @@
 			$this->start_controls_section(
 				'ma_cf7_section_title',
 				[
-					'label'                 => __( 'Title', MELA_TD ),
+					'label'                 => __( 'Title', MA_CF7_TD ),
 					'tab'                   => Controls_Manager::TAB_STYLE,
 				]
 			);
@@ -285,7 +286,7 @@
 			$this->add_control(
 				'title_text_color',
 				[
-					'label'                 => esc_html__( 'Color', MELA_TD ),
+					'label'                 => esc_html__( 'Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'selectors'             => [
 						'{{WRAPPER}} .master-addons-cf7 .master-addons-cf7-title' => 'color: {{VALUE}}',
@@ -296,19 +297,19 @@
 			$this->add_responsive_control(
 				'ma_cf7_heading_alignment',
 				[
-					'label'                 => esc_html__( 'Alignment', MELA_TD ),
+					'label'                 => esc_html__( 'Alignment', MA_CF7_TD ),
 					'type'                  => Controls_Manager::CHOOSE,
 					'options'               => [
 						'left'      => [
-							'title' => esc_html__( 'Left', MELA_TD ),
+							'title' => esc_html__( 'Left', MA_CF7_TD ),
 							'icon'  => 'fa fa-align-left',
 						],
 						'center'    => [
-							'title' => esc_html__( 'Center', MELA_TD ),
+							'title' => esc_html__( 'Center', MA_CF7_TD ),
 							'icon'  => 'fa fa-align-center',
 						],
 						'right'     => [
-							'title' => esc_html__( 'Right', MELA_TD ),
+							'title' => esc_html__( 'Right', MA_CF7_TD ),
 							'icon'  => 'fa fa-align-right',
 						],
 					],
@@ -323,7 +324,7 @@
 				Group_Control_Typography::get_type(),
 				[
 					'name'                  => 'ma_cf7_title_typography',
-					'label'                 => esc_html__( 'Typography', MELA_TD ),
+					'label'                 => esc_html__( 'Typography', MA_CF7_TD ),
 					'scheme'                => Scheme_Typography::TYPOGRAPHY_4,
 					'selector'              => '{{WRAPPER}} .master-addons-cf7 .master-addons-cf7-title',
 				]
@@ -340,7 +341,7 @@
 			$this->start_controls_section(
 				'section_fields_style',
 				[
-					'label'                 => esc_html__( 'Input & Textarea', MELA_TD ),
+					'label'                 => esc_html__( 'Input & Textarea', MA_CF7_TD ),
 					'tab'                   => Controls_Manager::TAB_STYLE,
 				]
 			);
@@ -348,7 +349,7 @@
 			$this->add_control(
 				'ma_cf7_field_bg',
 				[
-					'label'                 => esc_html__( 'Background Color', MELA_TD ),
+					'label'                 => esc_html__( 'Background Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'selectors'             => [
 						'{{WRAPPER}} .master-addons-cf7 .wpcf7-form-control.wpcf7-text, {{WRAPPER}} .master-addons-cf7 .wpcf7-form-control.wpcf7-textarea, {{WRAPPER}} .master-addons-cf7 .wpcf7-form-control.wpcf7-select' => 'background-color: {{VALUE}}',
@@ -359,7 +360,7 @@
 			$this->add_control(
 				'ma_cf7_field_text_color',
 				[
-					'label'                 => esc_html__( 'Text Color', MELA_TD ),
+					'label'                 => esc_html__( 'Text Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'selectors'             => [
 						'{{WRAPPER}} .master-addons-cf7 .wpcf7-form-control.wpcf7-text, {{WRAPPER}} .master-addons-cf7 .wpcf7-form-control.wpcf7-textarea, {{WRAPPER}} .master-addons-cf7 .wpcf7-form-control.wpcf7-select' => 'color: {{VALUE}}',
@@ -372,7 +373,7 @@
 			$this->add_control(
 				'ma_cf7_field_padding',
 				[
-					'label'                 => esc_html__( 'Padding', MELA_TD ),
+					'label'                 => esc_html__( 'Padding', MA_CF7_TD ),
 					'type'                  => Controls_Manager::DIMENSIONS,
 					'size_units'            => [ 'px', 'em', '%' ],
 					'default' => [
@@ -389,7 +390,7 @@
 			$this->add_control(
 				'ma_cf7_field_width',
 				[
-					'label'                 => esc_html__( 'Field Width', MELA_TD ),
+					'label'                 => esc_html__( 'Field Width', MA_CF7_TD ),
 					'type'                  => Controls_Manager::SLIDER,
 					'range'                 => [
 						'px'        => [
@@ -413,7 +414,7 @@
 				Group_Control_Border::get_type(),
 				[
 					'name'                  => 'field_border',
-					'label'                 => esc_html__( 'Border', MELA_TD ),
+					'label'                 => esc_html__( 'Border', MA_CF7_TD ),
 					'placeholder'           => '1px',
 					'default'               => '1px',
 					'selector'              => '{{WRAPPER}} .master-addons-cf7 .wpcf7-form-control.wpcf7-text, {{WRAPPER}} .master-addons-cf7 .wpcf7-form-control.wpcf7-textarea, {{WRAPPER}} .master-addons-cf7 .wpcf7-form-control.wpcf7-select',
@@ -424,7 +425,7 @@
 			$this->add_control(
 				'ma_cf7_field_radius',
 				[
-					'label'                 => esc_html__( 'Border Radius', MELA_TD ),
+					'label'                 => esc_html__( 'Border Radius', MA_CF7_TD ),
 					'type'                  => Controls_Manager::DIMENSIONS,
 					'size_units'            => [ 'px', 'em', '%' ],
 					'selectors'             => [
@@ -446,7 +447,7 @@
 			$this->start_controls_section(
 				'ma_cf7_section_label_style',
 				[
-					'label'                 => esc_html__( 'Labels', MELA_TD ),
+					'label'                 => esc_html__( 'Labels', MA_CF7_TD ),
 					'tab'                   => Controls_Manager::TAB_STYLE,
 				]
 			);
@@ -454,7 +455,7 @@
 			$this->add_control(
 				'text_color_label',
 				[
-					'label'                 => esc_html__( 'Color', MELA_TD ),
+					'label'                 => esc_html__( 'Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'selectors'             => [
 						'{{WRAPPER}} .master-addons-cf7 .wpcf7-form label' => 'color: {{VALUE}}',
@@ -467,7 +468,7 @@
 				Group_Control_Typography::get_type(),
 				[
 					'name'                  => 'ma_cf7_typography_label',
-					'label'                 => esc_html__( 'Typography', MELA_TD ),
+					'label'                 => esc_html__( 'Typography', MA_CF7_TD ),
 					'scheme'                => Scheme_Typography::TYPOGRAPHY_4,
 					'selector'              => '{{WRAPPER}} .master-addons-cf7 .wpcf7-form label',
 				]
@@ -485,7 +486,7 @@
 			$this->start_controls_section(
 				'ma_cf7_section_submit_button_style',
 				[
-					'label' => esc_html__( 'Submit Button', MELA_TD ),
+					'label' => esc_html__( 'Submit Button', MA_CF7_TD ),
 					'tab'   => Controls_Manager::TAB_STYLE,
 				]
 			);
@@ -494,7 +495,7 @@
 				Group_Control_Typography::get_type(),
 				[
 					'name'                  => 'ma_cf7_button_typography',
-					'label'                 => esc_html__( 'Button Typography', MELA_TD ),
+					'label'                 => esc_html__( 'Button Typography', MA_CF7_TD ),
 					'scheme'                => Scheme_Typography::TYPOGRAPHY_4,
 					'selector'              => '{{WRAPPER}} .master-addons-cf7 .wpcf7-form input[type="submit"]',
 				]
@@ -505,14 +506,14 @@
 			$this->start_controls_tab(
 				'ma_cf7_tab_button_normal',
 				[
-					'label' => esc_html__( 'Normal', MELA_TD ),
+					'label' => esc_html__( 'Normal', MA_CF7_TD ),
 				]
 			);
 
 			$this->add_control(
 				'ma_cf7_button_bg_color_normal',
 				[
-					'label'                 => esc_html__( 'Background Color', MELA_TD ),
+					'label'                 => esc_html__( 'Background Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#6e00e9',
 					'selectors'             => [
@@ -524,7 +525,7 @@
 			$this->add_control(
 				'ma_cf7_button_text_color_normal',
 				[
-					'label'                 => esc_html__( 'Text Color', MELA_TD ),
+					'label'                 => esc_html__( 'Text Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#FFF',
 					'selectors'             => [
@@ -536,7 +537,7 @@
 			$this->add_control(
 				'ma_cf7_button_border_color_normal',
 				[
-					'label'                 => esc_html__( 'Border Color', MELA_TD ),
+					'label'                 => esc_html__( 'Border Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => 'transparent',
 					'selectors'             => [
@@ -556,14 +557,14 @@
 			$this->start_controls_tab(
 				'tab_button_hover',
 				[
-					'label'                 => esc_html__( 'Hover', MELA_TD ),
+					'label'                 => esc_html__( 'Hover', MA_CF7_TD ),
 				]
 			);
 
 			$this->add_control(
 				'ma_cf7_button_bg_color_hover',
 				[
-					'label'                 => esc_html__( 'Background Color', MELA_TD ),
+					'label'                 => esc_html__( 'Background Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#FFF',
 					'selectors'             => [
@@ -575,7 +576,7 @@
 			$this->add_control(
 				'ma_cf7_button_text_color_hover',
 				[
-					'label'                 => esc_html__( 'Text Color', MELA_TD ),
+					'label'                 => esc_html__( 'Text Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#6e00e9',
 					'selectors'             => [
@@ -588,7 +589,7 @@
 //			Group_Control_Border::get_type(),
 //			[
 //				'name'                  => 'ma_cf7_button_border_width',
-//				'label'                 => esc_html__( 'Border', MELA_TD ),
+//				'label'                 => esc_html__( 'Border', MA_CF7_TD ),
 //				'placeholder'           => '1px',
 //				'default'               => '1px',
 ////				'selector'              => '{{WRAPPER}} .master-addons-cf7 .wpcf7-validation-errors',
@@ -602,7 +603,7 @@
 			$this->add_control(
 				'ma_cf7_button_border_width',
 				[
-					'label'                 => esc_html__( 'Border Width', MELA_TD ),
+					'label'                 => esc_html__( 'Border Width', MA_CF7_TD ),
 					'type'                  => Controls_Manager::DIMENSIONS,
 					'size_units'            => [ 'px', 'em', '%' ],
 					'separator'             => 'before',
@@ -622,7 +623,7 @@
 			$this->add_control(
 				'ma_cf7_button_border_color_hover',
 				[
-					'label'                 => esc_html__( 'Border Color', MELA_TD ),
+					'label'                 => esc_html__( 'Border Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '#6e00e9',
 					'selectors'             => [
@@ -642,7 +643,7 @@
 			$this->add_control(
 				'ma_cf7_button_border_radius',
 				[
-					'label'                 => esc_html__( 'Border Radius', MELA_TD ),
+					'label'                 => esc_html__( 'Border Radius', MA_CF7_TD ),
 					'type'                  => Controls_Manager::DIMENSIONS,
 					'size_units'            => [ 'px', 'em', '%' ],
 					'separator'             => 'before',
@@ -662,7 +663,7 @@
 			$this->add_control(
 				'button_padding',
 				[
-					'label'                 => esc_html__( 'Padding', MELA_TD ),
+					'label'                 => esc_html__( 'Padding', MA_CF7_TD ),
 					'type'                  => Controls_Manager::DIMENSIONS,
 					'size_units'            => [ 'px', 'em', '%' ],
 					'selectors'             => [
@@ -690,7 +691,7 @@
 			$this->start_controls_section(
 				'ma_cf7_section_error_style',
 				[
-					'label'                 => esc_html__( 'Errors', MELA_TD ),
+					'label'                 => esc_html__( 'Errors', MA_CF7_TD ),
 					'tab'                   => Controls_Manager::TAB_STYLE,
 				]
 			);
@@ -698,7 +699,7 @@
 			$this->add_control(
 				'ma_cf7_error_messages_heading',
 				[
-					'label'                 => esc_html__( 'Error Messages', MELA_TD ),
+					'label'                 => esc_html__( 'Error Messages', MA_CF7_TD ),
 					'type'                  => Controls_Manager::HEADING,
 					'condition'             => [
 						'ma_cf7_error_messages' => 'show',
@@ -710,7 +711,7 @@
 			$this->add_control(
 				'ma_cf7_error_alert_text_color',
 				[
-					'label'                 => esc_html__( 'Text Color', MELA_TD ),
+					'label'                 => esc_html__( 'Text Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '',
 					'selectors'             => [
@@ -726,7 +727,7 @@
 			$this->add_control(
 				'ma_cf7_error_field_bg_color',
 				[
-					'label'                 => esc_html__( 'Background Color', MELA_TD ),
+					'label'                 => esc_html__( 'Background Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '',
 					'selectors'             => [
@@ -742,7 +743,7 @@
 				Group_Control_Border::get_type(),
 				[
 					'name'                  => 'error_field_border',
-					'label'                 => esc_html__( 'Border', MELA_TD ),
+					'label'                 => esc_html__( 'Border', MA_CF7_TD ),
 					'placeholder'           => '1px',
 					'default'               => '1px',
 					'selector'              => '{{WRAPPER}} .master-addons-cf7 .wpcf7-not-valid-tip',
@@ -757,7 +758,7 @@
 			$this->add_control(
 				'ma_cf7_validation_errors_heading',
 				[
-					'label'                 => esc_html__( 'Validation Errors', MELA_TD ),
+					'label'                 => esc_html__( 'Validation Errors', MA_CF7_TD ),
 					'type'                  => Controls_Manager::HEADING,
 					'separator'             => 'before',
 					'condition'             => [
@@ -769,7 +770,7 @@
 			$this->add_control(
 				'ma_cf7_validation_errors_bg_color',
 				[
-					'label'                 => esc_html__( 'Background Color', MELA_TD ),
+					'label'                 => esc_html__( 'Background Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '',
 					'selectors'             => [
@@ -784,7 +785,7 @@
 			$this->add_control(
 				'ma_cf7_validation_errors_color',
 				[
-					'label'                 => esc_html__( 'Text Color', MELA_TD ),
+					'label'                 => esc_html__( 'Text Color', MA_CF7_TD ),
 					'type'                  => Controls_Manager::COLOR,
 					'default'               => '',
 					'selectors'             => [
@@ -801,7 +802,7 @@
 				Group_Control_Border::get_type(),
 				[
 					'name'                  => 'validation_errors_border',
-					'label'                 => esc_html__( 'Border', MELA_TD ),
+					'label'                 => esc_html__( 'Border', MA_CF7_TD ),
 					'placeholder'           => '1px',
 					'default'               => '1px',
 					'selector'              => '{{WRAPPER}} .master-addons-cf7 .wpcf7-validation-errors',
@@ -815,35 +816,32 @@
 			$this->end_controls_section();
 
 
-			if ( ma_el_fs()->is_not_paying() ) {
+			$this->start_controls_section(
+				'ma_el_section_pro_style_tab_section',
+				[
+					'label' => esc_html__( 'Upgrade to Pro Version for More Features', MA_CF7_TD ),
+					'tab' => Controls_Manager::TAB_STYLE
+				]
+			);
 
-				$this->start_controls_section(
-					'ma_el_section_pro_style_section',
-					[
-						'label' => esc_html__( 'Upgrade to Pro Version for More Features', MELA_TD ),
-						'tab' => Controls_Manager::TAB_STYLE
-					]
-				);
-
-				$this->add_control(
-					'ma_el_control_get_pro_style_tab',
-					[
-						'label' => esc_html__( 'Unlock more possibilities', MELA_TD ),
-						'type' => Controls_Manager::CHOOSE,
-						'options' => [
-							'1' => [
-								'title' => esc_html__( '', MELA_TD ),
-								'icon' => 'fa fa-unlock-alt',
-							],
+			$this->add_control(
+				'ma_el_control_get_pro_style_tab',
+				[
+					'label' => esc_html__( 'Unlock more possibilities', MA_CF7_TD ),
+					'type' => Controls_Manager::CHOOSE,
+					'options' => [
+						'1' => [
+							'title' => esc_html__( '', MA_CF7_TD ),
+							'icon' => 'fa fa-unlock-alt',
 						],
-						'default' => '1',
-						'description' => '<span class="pro-feature"> Upgrade to  <a href="' . ma_el_fs()->get_upgrade_url() . '" target="_blank">Pro Version</a> for more Elements with 
+					],
+					'default' => '1',
+					'description' => '<span class="pro-feature"> Upgrade to  <a href="https://master-addons.com/pricing/" target="_blank">Pro Version</a> for more Elements with 
 Customization Options.</span>'
-					]
-				);
+				]
+			);
 
-				$this->end_controls_section();
-			}
+			$this->end_controls_section();
 
 
 		}
@@ -861,9 +859,9 @@ Customization Options.</span>'
 
 			if ( function_exists( 'wpcf7' ) ) {
 				if ( ! empty( $settings['ma_cf7_list'] ) ) { ?>
-					<div <?php echo $this->get_render_attribute_string( 'master-addons-cf7' ); ?>>
+                    <div <?php echo $this->get_render_attribute_string( 'master-addons-cf7' ); ?>>
 						<?php echo do_shortcode( '[contact-form-7 id="' . $settings['ma_cf7_list'] . '" ]' ); ?>
-					</div>
+                    </div>
 
 					<?php
 				}

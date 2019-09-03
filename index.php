@@ -19,7 +19,7 @@
 			const VERSION = "1.0.0";
 			const MINIMUM_PHP_VERSION = '5.4';
 			const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
-			public static $plugin_name = 'Master Contact Form 7 Style';
+			public static $plugin_name = 'Master Contact Form 7 Styler';
 //			public static $plugin_slug = 'ma-contact-form-7';
 			public static $plugin_slug = 'elementor';
 
@@ -52,7 +52,7 @@
 
 				// Elementor Dependencies
 
-				add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'ma_cf7_editor_styles' ] );
+				// add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'ma_cf7_editor_styles' ] );
 
 				// Add Elementor Widgets
 				add_action( 'elementor/widgets/widgets_registered', [ $this, 'ma_cf7_init_widgets' ] );
@@ -74,6 +74,10 @@
 				 */
 				if ( ! defined( 'MA_CF7_PLUGIN' ) ) {
 					define( 'MA_CF7_PLUGIN', __FILE__ );
+				}
+
+				if ( ! defined( 'MA_CF7_PLUGIN_URL' ) ) {
+					define( 'MA_CF7_PLUGIN_URL', self::ma_cf7_plugin_url() );
 				}
 
 				if ( ! defined( 'MA_CF7_PLUGIN_PATH' ) ) {
@@ -105,6 +109,8 @@
 
 			public function ma_cf7_enqueue_scripts(){
 
+				wp_enqueue_style( 'ma-contact-form-7', MA_CF7_PLUGIN_URL . '/css/ma-cf7.css' );
+
 			}
 
 			public function ma_cf7_editor_styles(){
@@ -115,11 +121,65 @@
 			public function ma_cf7_init_widgets() {
 
 				if ( function_exists( 'wpcf7' ) ) {
-					require_once MA_CF7_PLUGIN_PATH  .'/addon/ma-cf7.php';
+					include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+
+					if ( is_plugin_active( 'elementor/elementor.php' ) ) {
+						require_once MA_CF7_PLUGIN_PATH  .'/addon/ma-cf7.php';
+					}
 				}
+
+				add_action( 'tgmpa_register', [$this, 'ma_cf7_register_required_plugins'] );
+
+
 
 			}
 
+			public function ma_cf7_register_required_plugins(){
+
+				/**
+				 * Array of plugin arrays. Required keys are name, slug and required.
+				 * If the source is NOT from the .org repo, then source is also required.
+				 */
+
+				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+				if ( is_plugin_active( 'elementor/elementor.php' ) ) {
+
+					$plugins = array(
+						array(
+							'name'      		 => esc_html__( 'Master Addons for Elementor', 'master-addons' ),
+							'slug'      		 => esc_html__( 'master-addons', 'master-addons' ),
+							'required'  		 => true,
+							'force_activation'   => false,
+						)
+					);
+				}
+
+
+				if ( !is_plugin_active( MA_CF7_REQ_PLUGIN ) ) {
+
+					$plugins = array(
+						array(
+							'name'      		 => esc_html__( 'Master Addons for Elementor', 'master-addons' ),
+							'slug'      		 => esc_html__( 'master-addons', 'master-addons' ),
+							'required'  		 => true,
+							'force_activation'   => false,
+						),
+						array(
+							'name'      		 => esc_html__( 'Contact Form 7', 'master-addons' ),
+							'slug'      		 => esc_html__( 'contact-form-7', 'master-addons' ),
+							'required'  		 => true,
+							'force_activation'   => false,
+						)
+					);
+				}
+
+
+
+				tgmpa( $plugins);
+
+
+
+			}
 
 			function ma_cf7_category() {
 
@@ -137,7 +197,7 @@
 
 
 			// Plugin URL
-			public static function mela_plugin_url() {
+			public static function ma_cf7_plugin_url() {
 
 				if ( self::$plugin_url ) {
 					return self::$plugin_url;
@@ -157,11 +217,23 @@
 			}
 
 			public function ma_cf7_include_files(){
+
+				include_once MA_CF7_PLUGIN_PATH . '/inc/functions.php';
 				include_once MA_CF7_PLUGIN_PATH . '/classes/ma-el-require-class.php';
-				// include_once MA_CF7_PLUGIN_PATH . '/classes/class-tgm-plugin-activation.php';
+
 
 				$ma_el_cf7 = new Master_Addons_Require_Class();
 				$ma_el_cf7->set_plugin_name( self::$plugin_name );
+
+				include( plugin_dir_path( __FILE__ ) . 'classes/class-tgm-plugin-activation.php');
+
+				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+				//Is Elementor Activated
+				if ( is_plugin_active( 'elementor/elementor.php' ) ) {
+					add_action( 'tgmpa_register', [$this, 'ma_cf7_register_required_plugins']);
+				}
+
+
 			}
 
 			public function ma_cf7_plugin_actions_links($links){
