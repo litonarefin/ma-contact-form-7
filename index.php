@@ -79,10 +79,6 @@
 					define( 'MA_CF7_PLUGIN_URL', self::ma_cf7_plugin_url() );
 				}
 
-				if ( ! defined( 'MA_CF7_PLUGIN_URL' ) ) {
-					define( 'MA_CF7_PLUGIN_URL', self::ma_cf7_plugin_url() );
-				}
-
 				if ( ! defined( 'MA_CF7_PLUGIN_PATH' ) ) {
 					define( 'MA_CF7_PLUGIN_PATH', self::ma_cf7_plugin_path() );
 				}
@@ -114,8 +110,6 @@
 				
 				wp_enqueue_style( 'ma-contact-form-7', MA_CF7_PLUGIN_URL . '/css/ma-cf7.css' );
 
-				wp_enqueue_style( 'ma-contact-form-7', MA_CF7_PLUGIN_URL . '/css/ma-cf7.css' );
-
 			}
 
 			public function ma_cf7_editor_styles(){
@@ -126,15 +120,9 @@
 			public function ma_cf7_init_widgets() {
 
 				if ( function_exists( 'wpcf7' ) ) {
-<<<<<<< HEAD
 				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 				
 				if ( is_plugin_active( 'elementor/elementor.php' ) ) {
-=======
-					include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-
-					if ( is_plugin_active( 'elementor/elementor.php' ) ) {
->>>>>>> 9e1e7a08c2c96349592e60986e11ec799a7b1a27
 						require_once MA_CF7_PLUGIN_PATH  .'/addon/ma-cf7.php';
 					}
 				}
@@ -142,11 +130,7 @@
 				add_action( 'tgmpa_register', [$this, 'ma_cf7_register_required_plugins'] );
 
 
-<<<<<<< HEAD
 				
-=======
-
->>>>>>> 9e1e7a08c2c96349592e60986e11ec799a7b1a27
 			}
 
 			public function ma_cf7_register_required_plugins(){
@@ -160,7 +144,6 @@
 				if ( is_plugin_active( 'elementor/elementor.php' ) ) {
 
 					$plugins = array(
-<<<<<<< HEAD
 							array(
 								'name'      		 => esc_html__( 'Master Addons for Elementor', 'master-addons' ),
 								'slug'      		 => esc_html__( 'master-addons', 'master-addons' ),
@@ -168,22 +151,12 @@
 								'force_activation'   => false,
 							)
 						);
-=======
-						array(
-							'name'      		 => esc_html__( 'Master Addons for Elementor', 'master-addons' ),
-							'slug'      		 => esc_html__( 'master-addons', 'master-addons' ),
-							'required'  		 => true,
-							'force_activation'   => false,
-						)
-					);
->>>>>>> 9e1e7a08c2c96349592e60986e11ec799a7b1a27
 				}
 
 
 				if ( !is_plugin_active( MA_CF7_REQ_PLUGIN ) ) {
 
 					$plugins = array(
-<<<<<<< HEAD
 							array(
 								'name'      		 => esc_html__( 'Master Addons for Elementor', 'master-addons' ),
 								'slug'      		 => esc_html__( 'master-addons', 'master-addons' ),
@@ -217,28 +190,6 @@
 				//tgmpa( $plugins);
 
 			
-=======
-						array(
-							'name'      		 => esc_html__( 'Master Addons for Elementor', 'master-addons' ),
-							'slug'      		 => esc_html__( 'master-addons', 'master-addons' ),
-							'required'  		 => true,
-							'force_activation'   => false,
-						),
-						array(
-							'name'      		 => esc_html__( 'Contact Form 7', 'master-addons' ),
-							'slug'      		 => esc_html__( 'contact-form-7', 'master-addons' ),
-							'required'  		 => true,
-							'force_activation'   => false,
-						)
-					);
-				}
-
-
-
-				tgmpa( $plugins);
-
-
->>>>>>> 9e1e7a08c2c96349592e60986e11ec799a7b1a27
 
 			}
 
@@ -278,33 +229,19 @@
 			}
 
 			public function ma_cf7_include_files(){
-<<<<<<< HEAD
 				
 				include_once MA_CF7_PLUGIN_PATH . '/inc/functions.php';
 				include_once MA_CF7_PLUGIN_PATH . '/classes/ma-el-require-class.php';
 				
-=======
-
-				include_once MA_CF7_PLUGIN_PATH . '/inc/functions.php';
-				include_once MA_CF7_PLUGIN_PATH . '/classes/ma-el-require-class.php';
-
->>>>>>> 9e1e7a08c2c96349592e60986e11ec799a7b1a27
 
 				$ma_el_cf7 = new Master_Addons_Require_Class();
 				$ma_el_cf7->set_plugin_name( self::$plugin_name );
 
 				include( plugin_dir_path( __FILE__ ) . 'classes/class-tgm-plugin-activation.php');
-<<<<<<< HEAD
 				
 				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 				//Is Elementor Activated
 				if ( is_plugin_active( 'elementor/elementor.php' ) ) {								
-=======
-
-				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-				//Is Elementor Activated
-				if ( is_plugin_active( 'elementor/elementor.php' ) ) {
->>>>>>> 9e1e7a08c2c96349592e60986e11ec799a7b1a27
 					add_action( 'tgmpa_register', [$this, 'ma_cf7_register_required_plugins']);
 				}
 
