@@ -185,7 +185,11 @@ Customization Options.</span>'
 			);
 
 			$this->end_controls_section();
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> 9e1e7a08c2c96349592e60986e11ec799a7b1a27
 
 			/**
 			 * Style Tab: Form Design
@@ -859,9 +863,9 @@ Customization Options.</span>'
 
 			if ( function_exists( 'wpcf7' ) ) {
 				if ( ! empty( $settings['ma_cf7_list'] ) ) { ?>
-					<div <?php echo $this->get_render_attribute_string( 'master-addons-cf7' ); ?>>
+                    <div <?php echo $this->get_render_attribute_string( 'master-addons-cf7' ); ?>>
 						<?php echo do_shortcode( '[contact-form-7 id="' . $settings['ma_cf7_list'] . '" ]' ); ?>
-					</div>
+                    </div>
 
 					<?php
 				}
