@@ -8,6 +8,8 @@
 
 	if (!defined('ABSPATH')) { exit; } // No, Direct access Sir !!!
 
+	
+
 	if( !class_exists('Master_Addons_Require_Class') ){
 		class Master_Addons_Require_Class {
 
@@ -45,7 +47,7 @@
 			public function ma_el_init(){
 				$this->ma_el_require_constants();
 				$this->ma_el_require_load_textdomain();
-				$this->ma_el_require_include_files();
+				// $this->ma_el_require_include_files();
 			}
 
 
@@ -367,8 +369,8 @@
 			public function ma_el_require_constants(){
 
 				// Master Addons Text Domain
-				if ( ! defined( 'MA_EL_TD' ) ) {
-					define( 'MA_EL_TD', $this->ma_el_require_load_textdomain() );
+				if ( ! defined( 'MA_CF7_TD' ) ) {
+					define( 'MA_CF7_TD', $this->ma_el_require_load_textdomain() );
 				}
 			}
 
@@ -476,8 +478,8 @@
 					}
 					$activation_url = wp_nonce_url( 'plugins.php?action=activate&amp;plugin=' . $plugin . '&amp;plugin_status=all&amp;paged=1&amp;s', 'activate-plugin_' . $plugin );
 					$message = sprintf( '<b>%1$s</b> requires <b>"Elementor"</b> plugin to be active. Please activate <b>"Elementor"</b> to continue.',
-						$this->get_plugin_name(), $this->is_elementor_activated(),MA_EL_TD   );
-					$button_text = __( 'Activate Elementor', MA_EL_TD );
+						$this->get_plugin_name(), $this->is_elementor_activated(),MA_CF7_TD   );
+					$button_text = __( 'Activate Elementor', MA_CF7_TD );
 
 				} else {
 
@@ -486,8 +488,8 @@
 					}
 
 					$activation_url = wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=elementor' ), 'install-plugin_elementor' );
-					$message = sprintf(  __('<b>%3$s</b> requires %1$s "Elementor" %2$s plugin to be installed and activated. Please Install Elementor to Explore more.', MA_EL_TD) , '<strong>', '</strong>', $this->get_plugin_name() );
-					$button_text = sprintf( __('Install Elementor',MA_EL_TD) );
+					$message = sprintf(  __('<b>%3$s</b> requires %1$s "Elementor" %2$s plugin to be installed and activated. Please Install Elementor to Explore more.', MA_CF7_TD) , '<strong>', '</strong>', $this->get_plugin_name() );
+					$button_text = sprintf( __('Install Elementor',MA_CF7_TD) );
 				}
 
 				$button = '<p><a href="' . $activation_url . '" class="button-primary">' . $button_text . '</a></p>';
@@ -506,9 +508,9 @@
 
 				$message = sprintf(
 				/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
-					esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', MA_EL_TD ),
-					'<strong>' . sprintf( '<b>%1$s</b> for Elementor', $this->get_plugin_name(), MA_EL_TD ) . '</strong>',
-					'<strong>' . esc_html__( 'Elementor', MA_EL_TD ) . '</strong>',
+					esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', MA_CF7_TD ),
+					'<strong>' . sprintf( '<b>%1$s</b> for Elementor', $this->get_plugin_name(), MA_CF7_TD ) . '</strong>',
+					'<strong>' . esc_html__( 'Elementor', MA_CF7_TD ) . '</strong>',
 					self::MINIMUM_ELEMENTOR_VERSION
 				);
 
@@ -522,93 +524,22 @@
 
 				$message = sprintf(
 				/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
-					esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', MA_EL_TD ),
-					'<strong>' . sprintf( '<b>%1$s</b> for Elementor', $this->get_plugin_name(), MA_EL_TD ) . '</strong>',
-					'<strong>' . esc_html__( 'PHP', MA_EL_TD ) . '</strong>',
+					esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', MA_CF7_TD ),
+					'<strong>' . sprintf( '<b>%1$s</b> for Elementor', $this->get_plugin_name(), MA_CF7_TD ) . '</strong>',
+					'<strong>' . esc_html__( 'PHP', MA_CF7_TD ) . '</strong>',
 					self::MINIMUM_PHP_VERSION
 				);
 
 				printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
 			}
 
-			public function ma_el_require_include_files(){
+			// public function ma_el_require_include_files(){
 
-				include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-				if ( is_plugin_active( 'elementor/elementor.php' ) ) {
-					//plugin is activated
-					include_once MA_CF7_PLUGIN_PATH . '/classes/class-tgm-plugin-activation.php';
-					add_action( 'tgmpa_register', [$this, 'ma_el_register_required_plugins'],100,2 );
-				}
-			}
+			// }
 
-			public function ma_el_register_required_plugins(){
-
-				/**
-				 * Array of plugin arrays. Required keys are name, slug and required.
-				 * If the source is NOT from the .org repo, then source is also required.
-				 */
-
-
-				$plugins = array(
-
-					// This is an example of how to include a plugin pre-packaged with a theme
-					array(
-						'name'      		 => esc_html__( 'Master Addons for Elementor', 'master-addons' ),
-						'slug'      		 => esc_html__( 'master-addons', 'master-addons' ),
-						'required'  		 => true,
-						'force_activation'   => true,
-					)
-
-				);
-
-
-				/**
-				 * Array of configuration settings. Amend each line as needed.
-				 * If you want the default strings to be available under your own theme domain,
-				 * leave the strings uncommented.
-				 * Some of the strings are added into a sprintf, so see the comments at the
-				 * end of each line for what each argument will be.
-				 */
-
-				$config = array(
-					'id'           => 'master-addons',             // Unique ID for hashing notices for multiple instances of TGMPA.
-					'default_path' => '',                      // Default absolute path to bundled plugins.
-					'menu'         => 'tgmpa-install-plugins', // Menu slug.
-					'parent_slug'  => 'themes.php',            // Parent menu slug.
-					'capability'   => 'edit_theme_options',    // Capability needed to view plugin install page, should be a capability associated with the parent menu used.
-					'has_notices'  => true,                    // Show admin notices or not.
-					'dismissable'  => true,                    // If false, a user cannot dismiss the nag message.
-					'dismiss_msg'  => '',                      // If 'dismissable' is false, this message will be output at top of nag.
-					'is_automatic' => false,                   // Automatically activate plugins after installation or not.
-					'message'      => '',                      // Message to output right before the plugins table.
-					'strings'           => array(
-						'page_title'                                => esc_html__( 'Install Required Plugins', 'master-addons' ),
-						'menu_title'                                => esc_html__( 'Install Plugins', 'master-addons' ),
-						'installing'                                => esc_html__( 'Installing Plugin: %s', 'master-addons' ), // %1$s = plugin name
-						'oops'                                      => esc_html__( 'Something went wrong with the plugin API.', 'master-addons' ),
-						'notice_can_install_required'               => _n_noop( 'This theme requires the following plugin: %1$s.', 'This theme requires the following plugins: %1$s.' ,'master-addons' ), // %1$s = plugin name(s)
-						'notice_can_install_recommended'            => _n_noop( 'This theme recommends the following plugin: %1$s.', 'This theme recommends the following plugins: %1$s.','master-addons' ), // %1$s = plugin name(s)
-						'notice_cannot_install'                     => _n_noop( 'Sorry, but you do not have the correct permissions to install the %s plugin. Contact the administrator of this site for help on getting the plugin installed.', 'Sorry, but you do not have the correct permissions to install the %s plugins. Contact the administrator of this site for help on getting the plugins installed.','master-addons' ), // %1$s = plugin name(s)
-						'notice_can_activate_required'              => _n_noop( 'The following required plugin is currently inactive: %1$s.', 'The following required plugins are currently inactive: %1$s.','master-addons' ), // %1$s = plugin name(s)
-						'notice_can_activate_recommended'           => _n_noop( 'The following recommended plugin is currently inactive: %1$s.', 'The following recommended plugins are currently inactive: %1$s.','master-addons' ), // %1$s = plugin name(s)
-						'notice_cannot_activate'                    => _n_noop( 'Sorry, but you do not have the correct permissions to activate the %s plugin. Contact the administrator of this site for help on getting the plugin activated.', 'Sorry, but you do not have the correct permissions to activate the %s plugins. Contact the administrator of this site for help on getting the plugins activated.','master-addons' ), // %1$s = plugin name(s)
-						'notice_ask_to_update'                      => _n_noop( 'The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s.', 'The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s.','master-addons' ), // %1$s = plugin name(s)
-						'notice_cannot_update'                      => _n_noop( 'Sorry, but you do not have the correct permissions to update the %s plugin. Contact the administrator of this site for help on getting the plugin updated.', 'Sorry, but you do not have the correct permissions to update the %s plugins. Contact the administrator of this site for help on getting the plugins updated.','master-addons' ), // %1$s = plugin name(s)
-						'install_link'                              => _n_noop( 'Begin installing plugin', 'Begin installing plugins', 'master-addons' ),
-						'activate_link'                             => _n_noop( 'Activate installed plugin', 'Activate installed plugins', 'master-addons' ),
-						'return'                                    => esc_html__( 'Return to Required Plugins Installer', 'master-addons' ),
-						'plugin_activated'                          => esc_html__( 'Plugin activated successfully.', 'master-addons' ),
-						'complete'                                  => esc_html__( 'All plugins installed and activated successfully. %s', 'master-addons' ) // %1$s = dashboard link
-					)
-				);
-
-
-				tgmpa( $plugins, $config );
-
-			}
 
 
 		}
 
-//		Master_Addons_Require_Class::get_instance();
+		// Master_Addons_Require_Class::get_instance();
 	}
