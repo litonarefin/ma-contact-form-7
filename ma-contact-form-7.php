@@ -3,7 +3,7 @@
 	Plugin Name: Master Contact Form 7 - Styler for Elementor
 	Plugin URI: https://master-addons.com
 	Description: Easily Customizable Contact Form 7 Style for Elementor Page Builder Plugin
-	Version: 1.2.0
+	Version: 1.3.0
 	Author: Liton Arefin
 	Author URI: http://master-addons.com
 	License: GPL2

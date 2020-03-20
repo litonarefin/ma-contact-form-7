@@ -3,8 +3,8 @@ Contributors: Litonice13, jwthemeltd
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=jwthemeltd@gmail.com&lc=US&item_name=Donate&currency_code=USD&bn=PP-DonationsBF:btn_donate_SM.gif:NonHostedGuest
 Tags: contact form 7 elementor, contact addons, contact form 7 element, contact form elementor, elementor contact
 Requires at least: 4.0
-Tested up to: 5.2.2
-Stable tag: trunk
+Tested up to: 5.4
+Stable tag: 1.2.0
 Requires PHP: 5.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
